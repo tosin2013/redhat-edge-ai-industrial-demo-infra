@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-edge-ai-demo-image-to-quay
+  namespace: rhde-dev-pipeline
+spec:
+  resources:
+    inputs:
+      - name: source-code
+        type: git
+    outputs:
+      - name: image
+        type: image
+  params:
+    - name: quay-io-account
+      type: string
+      default: container-registry-secret
+      description: The Quay.io account that matches the credentials stored in the mounted secret.
+    - name: quay-io-repository
+      type: string
+      default: quay.io/takinosh/edge-ai-demo
+      description: The Quay.io repository in which to store the image.
+    - name: quay-io-image-tag-name
+      type: string
+      description: The tag to use to identify the image.
+      default: latest
+    - name: STORAGE_DRIVER
+      type: string
+      default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+  steps:
+    - name: git-source
+      image: alpine/git
+      script: |
+        git clone https://github.com/bdherouville/redhat-edge-ai-industrial-demo.git /workspace/source-code
+      resources: {}
+      volumeMounts:
+        - mountPath: /workspace/source-code
+          name: workspace-source-code
+    - name: buildah-build
+      image: registry.redhat.io/rhel8/buildah
+      script: |
+        cd /workspace/source-code/container  # Change to the directory containing the Dockerfile
+        buildah bud -t $(params.quay-io-repository):$(params.quay-io-image-tag-name) .
+      resources: {}
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+        - mountPath: /workspace/source-code
+          name: workspace-source-code
+    - name: buildah-push
+      image: registry.redhat.io/rhel8/buildah
+      script: |
+        buildah push --tls-verify=false --storage-driver=$(params.STORAGE_DRIVER) \
+          --authfile /etc/secret-volume/.dockerconfigjson \
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      resources: {}
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+    - name: output-image
+      image: alpine:latest
+      script: |
+        echo "Image pushed to $(params.quay-io-repository):$(params.quay-io-image-tag-name)"
+      resources: {}
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: container-registry-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: rhde-dev-pipeline-shared-workspace-pvc
+    - name: workspace-source-code
+      emptyDir: {}
