@@ -1,14 +1,14 @@
 kind: ImageStream
 apiVersion: image.openshift.io/v1
 metadata:
-  name: engine-room-monitoring
-  namespace: edge-anomaly-detection
+  name: rhde-dev-instance
+  namespace: rhde-dev-instance
   labels:
-    app: engine-room-monitoring
-    app.kubernetes.io/component: engine-room-monitoring
-    app.kubernetes.io/instance: engine-room-monitoring
-    app.kubernetes.io/name: engine-room-monitoring
-    app.kubernetes.io/part-of: engine-room-monitoring
+    app: rhde-dev-instance
+    app.kubernetes.io/component: rhde-dev-instance
+    app.kubernetes.io/instance: rhde-dev-instance
+    app.kubernetes.io/name: rhde-dev-instance
+    app.kubernetes.io/part-of: rhde-dev-instance
 spec:
   lookupPolicy:
     local: false

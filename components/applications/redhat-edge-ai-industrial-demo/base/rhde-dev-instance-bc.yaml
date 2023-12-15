@@ -2,7 +2,7 @@ kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
   name: rhde-dev-instance
-  namespace: edge-anomaly-detection
+  namespace: rhde-dev-instance
   labels:
     app: rhde-dev-instance
     app.kubernetes.io/component: rhde-dev-instance
