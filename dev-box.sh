@@ -15,10 +15,15 @@ else
     exit 1
 fi
 
-sudo subscription-manager register
-sudo subscription-manager refresh
-sudo subscription-manager attach --auto
-sudo subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms --enable=rhel-8-for-x86_64-baseos-rpms
+read -p "Would you like to register the system? (y/n): " register_system
+
+if [ "$register_system" == "y" ]; then
+  sudo subscription-manager register
+  sudo subscription-manager refresh
+  sudo subscription-manager attach --auto
+  sudo subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms --enable=rhel-8-for-x86_64-baseos-rpms
+fi
+
 sudo dnf install git vim unzip wget bind-utils tar -y 
 sudo dnf install ncurses-devel curl -y
 curl 'https://vim-bootstrap.com/generate.vim' --data 'editor=vim&langs=javascript&langs=go&langs=html&langs=ruby&langs=python' > ~/.vimrc
