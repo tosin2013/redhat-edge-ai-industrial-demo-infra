@@ -1,0 +1,40 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: rhde-dev-instance
+  namespace: edge-anomaly-detection
+  labels:
+    app: rhde-dev-instance
+    app.kubernetes.io/component: rhde-dev-instance
+    app.kubernetes.io/instance: rhde-dev-instance
+    app.kubernetes.io/name: rhde-dev-instance
+    app.kubernetes.io/part-of: rhde-dev-instance
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'rhde-dev-instance:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy: {}
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/tosin2013/opcua-asyncio-build-pipelines.git'
+    contextDir: complete-builds/rhde-dev-instance
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: rhde-dev-instance-generic-webhook-secret
+    - type: GitHub
+      github:
+        secretReference:
+          name: rhde-dev-instance-github-webhook-secret
+    - type: ConfigChange
+  runPolicy: Serial

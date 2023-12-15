@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: rhde-dev-instance
+  namespace: rhde-dev-env
+  labels:
+    deployment: rhde-dev-instance
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 8000-tcp
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    deployment: rhde-dev-instance
