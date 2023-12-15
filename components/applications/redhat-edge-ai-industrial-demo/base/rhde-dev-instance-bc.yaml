@@ -25,8 +25,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/tosin2013/opcua-asyncio-build-pipelines.git'
-    contextDir: complete-builds/rhde-dev-instance
+      uri: 'https://github.com/bdherouville/redhat-edge-ai-industrial-demo.git'
+    contextDir: container
   triggers:
     - type: Generic
       generic:
