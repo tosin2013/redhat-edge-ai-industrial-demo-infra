@@ -13,15 +13,18 @@ chmod +x dev-box.sh
 ## Deployment Options
 **AWS**
 ```
-kustomize build clusters/overlays/aws    
+kustomize build clusters/overlays/aws  
+oc create -k clusters/overlays/aws
 ```
 
 **Baremetal**
 ```
 kustomize build clusters/overlays/baremetal    
+oc create -k clusters/overlays/baremetal
 ```
 
 **Rosa**
 ```
 kustomize build clusters/overlays/baremetal    
+oc create -k clusters/overlays/baremetal
 ```
