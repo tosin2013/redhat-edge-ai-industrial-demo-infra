@@ -24,7 +24,7 @@
     - cluster: local
       url: https://kubernetes.default.svc
       values:
-        name: mock-railroad-freight
+        name: rhde-dev-env
         path: components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env
     #- cluster: local
     #  url: https://kubernetes.default.svc
