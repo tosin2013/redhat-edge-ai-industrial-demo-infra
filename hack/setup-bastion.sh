@@ -125,6 +125,30 @@ fi
 
 cd $HOME
 
+# Check if already logged in to OpenShift
+if oc whoami &> /dev/null; then
+    echo "Already logged in to OpenShift."
+else
+    # Prompt user to enter the command for logging into the cluster
+    read -p "Enter the command to login to the cluster: " login_command
+
+    # Run the next steps using the provided login command
+    eval $login_command
+fi
+
+# could i have someone pass in the command to login to the cluster before runing the next steps?
+status=$(oc get ArgoCD openshift-gitops -n openshift-gitops -o jsonpath='{.status.phase}')
+
+if [ "$status" == "Available" ]; then
+  echo "ArgoCD is available."
+else
+  echo "ArgoCD is not available."
+  git clone https://github.com/tosin2013/sno-quickstarts.git
+  cd sno-quickstarts/gitops
+  ./deploy.sh
+fi
+
+
 status=$(oc get ArgoCD openshift-gitops -n openshift-gitops -o jsonpath='{.status.phase}')
 
 if [ "$status" == "Available" ]; then

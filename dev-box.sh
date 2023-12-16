@@ -34,3 +34,5 @@ if [ ! -f $HOME/edge-anomaly-detection ]; then
     cd redhat-edge-ai-industrial-demo-infra
     ./hack/setup-bastion.sh
 fi 
+
+oc create -k clusters/overlays/aws
