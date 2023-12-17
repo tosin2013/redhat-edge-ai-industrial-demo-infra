@@ -20,25 +20,29 @@ chmod +x dev-box.sh
 ## Deployment Options
 **AWS**
 ```
-kustomize build clusters/overlays/aws  
+$ kustomize build clusters/overlays/aws  # to test
+cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/aws
 ```
 
 **4.14-workshop on RHPDS**
 ```
-kustomize build clusters/overlays/4.14-workshop  
+$ kustomize build clusters/overlays/4.14-workshop  # to test
+cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/4.14-workshop
 ```
 
 **Baremetal**
 ```
-kustomize build clusters/overlays/baremetal    
+$ kustomize build clusters/overlays/baremetal     # to test
+cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/baremetal
 ```
 
 **Rosa**
 ```
-kustomize build clusters/overlays/baremetal    
+$ kustomize build clusters/overlays/baremetal  # to test  
+cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/baremetal
 ```
 

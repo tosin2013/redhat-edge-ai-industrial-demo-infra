@@ -35,4 +35,4 @@ if [ ! -f $HOME/edge-anomaly-detection ]; then
     ./hack/setup-bastion.sh
 fi 
 
-oc create -k clusters/overlays/aws
+#oc create -k clusters/overlays/aws
