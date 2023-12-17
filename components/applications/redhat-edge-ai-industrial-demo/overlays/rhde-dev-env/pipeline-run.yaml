@@ -18,7 +18,7 @@ spec:
       value: image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/redhat-edge-ai-industrial-demo:latest
     - name: buildahPlatforms
       value:
-        - linux/x86_64
+        - linux/amd64 #linux/x86_64
         - linux/arm64/v8
     - name: outputContainerImage
       value: quay.io/tosin2013/redhat-edge-ai-industrial-demo
