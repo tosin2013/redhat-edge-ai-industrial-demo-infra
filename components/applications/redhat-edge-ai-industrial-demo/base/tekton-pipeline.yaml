@@ -1,99 +1,68 @@
-apiVersion: tekton.dev/v1beta1
-kind: Task
+
+# https://www.itix.fr/blog/build-multi-architecture-container-images-with-kubernetes-buildah-tekton-and-qemu/
+---
+apiVersion: tekton.dev/v1
+kind: Pipeline
 metadata:
-  name: push-rhde-dev-instance-image-to-quay
-  namespace: rhde-dev-instance
+  name: build-and-deploy
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
+  workspaces:
+    - name: shared-workspace
   params:
-    - default: container-registry-secret
-      description: >-
-        The quay.io account that matches the credentials stored in the mounted
-        secret.
-      name: quay-io-account
+    - name: git-url
       type: string
-    - default: quay.io/takinosh/rhde-dev-instance
-      description: The quay.io repository in which to store the image.
-      name: quay-io-repository
+      description: url of the git repo for the code of deployment
+      default: https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git
+    - name: IMAGE
       type: string
-    - default: $(inputs.params.quay-io-image-tag-name)
-      description: The tag to use to identify the image.
-      name: quay-io-image-tag-name
-      type: string
-    - default: overlay
-      description: The Buildah storage STORAGE_DRIVER
-      name: STORAGE_DRIVER
-      type: string
-  steps:
-    - command:
-        - podman
-        - pull
-        - '--tls-verify=false'
-        - >-
-          docker://image-registry.openshift-image-registry.svc:5000/rrhde-dev-instance/rrhde-dev-instance:$(inputs.params.quay-io-image-tag-name)
-      image: registry.redhat.io/rhel8/podman
-      name: podman-pull-image
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-        - mountPath: /var/lib/containers
-          name: pipeline-cache
-    - command:
-        - buildah
-        - tag
-        - '--storage-driver=$(params.STORAGE_DRIVER)'
-        - >-
-          image-registry.openshift-image-registry.svc:5000/rrhde-dev-instance/rrhde-dev-instance:$(inputs.params.quay-io-image-tag-name)
-        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
-      image: registry.redhat.io/rhel8/buildah
-      name: buildah-tag-image
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-        - mountPath: /var/lib/containers
-          name: pipeline-cache
-    - command:
-        - buildah
-        - images
-        - '--storage-driver=$(params.STORAGE_DRIVER)'
-      image: registry.redhat.io/rhel8/buildah
-      name: buildah-list-images-after-tagging
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-        - mountPath: /var/lib/containers
-          name: pipeline-cache
-    - command:
-        - buildah
-        - push
-        - '--tls-verify=false'
-        - '--storage-driver=$(params.STORAGE_DRIVER)'
-        - '--authfile'
-        - /etc/secret-volume/.dockerconfigjson
-        - >-
-          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
-      image: registry.redhat.io/rhel8/buildah
-      name: push-rhde-dev-pipeline-image-to-quay
-      resources: {}
-      securityContext:
-        privileged: true
-      volumeMounts:
-        - mountPath: /etc/secret-volume
-          name: quay-auth-secret
-          readOnly: true
-        - mountPath: /var/lib/containers
-          name: pipeline-cache
-      workingDir: /quay
-  volumes:
-    - name: quay-auth-secret
-      secret:
-        secretName: container-registry-secret
-    - name: pipeline-cache
-      persistentVolumeClaim:
-        claimName: rhde-dev-pipeline-shared-workspace-pvc
+      description: image to be built from the code
+      default: image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/redhat-edge-ai-industrial-demo:latest
+    - name: buildahPlatforms
+      type: array
+      default:
+      - linux/x86_64
+      - linux/arm64/v8
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: depth
+          value: '1'  #
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: "true"
+    - name: build-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: TLSVERIFY
+          value: "false"
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: CONTEXT
+          value: container
+        - name: buildahPlatforms  # Adding this to specify the target platforms
+          value:
+          - $(params.buildahPlatforms[*])
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+      runAfter:
+        - fetch-repository
+    - name: apply-manifests
+      taskRef:
+        name: apply-manifests
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+      runAfter:
+        - build-image

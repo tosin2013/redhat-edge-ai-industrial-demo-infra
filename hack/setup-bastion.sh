@@ -130,6 +130,7 @@ if oc whoami &> /dev/null; then
     echo "Already logged in to OpenShift."
 else
     # Prompt user to enter the command for logging into the cluster
+    echo "Example: oc login --token=sha256~xxxxxxxxx --server=https://api.example.com:6443"
     read -p "Enter the command to login to the cluster: " login_command
 
     # Run the next steps using the provided login command
