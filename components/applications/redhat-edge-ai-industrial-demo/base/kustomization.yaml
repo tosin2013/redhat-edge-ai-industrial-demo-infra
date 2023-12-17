@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - edge-namespace.yaml
   - sa-account.yaml
+  - role-binding.yaml
   - mutli-arch-daemonset.yaml
   - tekton-pipeline.yaml
