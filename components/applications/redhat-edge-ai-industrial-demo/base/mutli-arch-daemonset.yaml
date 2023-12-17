@@ -12,6 +12,7 @@ spec:
       labels:
         name: multiarch-qemu
     spec:
+      serviceAccountName: qemu-service-account
       containers:
       - name: multiarch-qemu
         image: docker.io/multiarch/qemu-user-static:6.1.0-8
