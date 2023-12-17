@@ -63,7 +63,7 @@ spec:
       workspaces:
         - name: src
           workspace: scratch
-          subPath: src
+          subPath: container
         - name: containers
           workspace: scratch
           subPath: containers

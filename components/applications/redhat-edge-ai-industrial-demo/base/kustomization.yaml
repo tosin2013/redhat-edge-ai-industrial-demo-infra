@@ -1,10 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: rhde-dev-instance
+
 resources:
   - edge-namespace.yaml
   - sa-account.yaml
+  - scc.yaml
+  - scc-rolebinding.yaml
   - role-binding.yaml
-  - mutli-arch-daemonset.yaml
-  - mutliarch-task.yaml
+  - multiarch-daemonset.yaml
+  - multiarch-task.yaml
   - tekton-pipeline.yaml
