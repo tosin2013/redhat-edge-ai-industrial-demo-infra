@@ -1,5 +1,9 @@
 # redhat-edge-ai-industrial-demo Infra for redhat-edge-ai-industrial-demo
 
+![20231216224549](https://i.imgur.com/M79pCPU.png)
+
+*Still a work in progress*
+
 [redhat-edge-ai-industrial-demo](https://github.com/bdherouville/redhat-edge-ai-industrial-demo)
 
 **Quick Start**
