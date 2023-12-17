@@ -21,4 +21,3 @@ oc apply -k https://github.com/tosin2013/redhat-edge-ai-industrial-demo-infra/co
 
 # References
 * https://www.itix.fr/blog/build-multi-architecture-container-images-with-kubernetes-buildah-tekton-and-qemu/
-* 
