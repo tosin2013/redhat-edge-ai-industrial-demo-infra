@@ -7,7 +7,7 @@ metadata:
   name: build-and-deploy
 spec:
   workspaces:
-    - name: shared-workspace
+    - name: scratch
   params:
     - name: git-url
       type: string
@@ -22,6 +22,9 @@ spec:
       default:
       - linux/x86_64
       - linux/arm64/v8
+    - name: outputContainerImage
+      type: string
+      default: quay.io/tosin2013/redhat-edge-ai-industrial-dem
   tasks:
     - name: fetch-repository
       taskRef:
@@ -29,7 +32,7 @@ spec:
         kind: ClusterTask
       workspaces:
         - name: output
-          workspace: shared-workspace
+          workspace: scratch
       params:
         - name: url
           value: $(params.git-url)
@@ -39,11 +42,13 @@ spec:
           value: ""
         - name: deleteExisting
           value: "true"
-    - name: build-image
+    - name: mutli-arch-image-build
       taskRef:
-        name: buildah
-        kind: ClusterTask
+        name: mutli-arch-buildah
+        kind: Task
       params:
+        - name: buildahVersion
+          value: latest
         - name: TLSVERIFY
           value: "false"
         - name: IMAGE
@@ -53,9 +58,15 @@ spec:
         - name: buildahPlatforms  # Adding this to specify the target platforms
           value:
           - $(params.buildahPlatforms[*])
+        - name: outputContainerImage
+          value: "$(params.outputContainerImage)"
       workspaces:
-        - name: source
-          workspace: shared-workspace
+        - name: src
+          workspace: scratch
+          subPath: src
+        - name: containers
+          workspace: scratch
+          subPath: containers
       runAfter:
         - fetch-repository
     - name: apply-manifests
@@ -63,6 +74,6 @@ spec:
         name: apply-manifests
       workspaces:
         - name: source
-          workspace: shared-workspace
+          workspace: scratch
       runAfter:
-        - build-image
+        - mutli-arch-image-build

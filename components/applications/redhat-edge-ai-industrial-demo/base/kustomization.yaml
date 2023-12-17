@@ -6,4 +6,5 @@ resources:
   - sa-account.yaml
   - role-binding.yaml
   - mutli-arch-daemonset.yaml
+  - mutliarch-task.yaml
   - tekton-pipeline.yaml
