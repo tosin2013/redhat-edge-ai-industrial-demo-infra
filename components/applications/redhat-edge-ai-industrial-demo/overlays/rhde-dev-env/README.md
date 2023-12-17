@@ -1,5 +1,6 @@
 # WIP - Tekton pipelines and Application Deployment code
 
+![20231216224440](https://i.imgur.com/3dNPQJR.png)
 
 **Using Kustomize**
 ```
