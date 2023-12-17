@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-and-deploy-run-
+  namespace: rhde-dev-instance
+spec:
+  serviceAccountName: pipeline
+  pipelineRef:
+    name: build-and-deploy
+  workspaces:
+    - name: scratch
+      persistentVolumeClaim:
+        claimName: pipelines-test
+  params:
+    - name: git-url
+      value: https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git
+    - name: IMAGE
+      value: image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/redhat-edge-ai-industrial-demo:latest
+    - name: buildahPlatforms
+      value:
+        - linux/x86_64
+        - linux/arm64/v8
+    - name: outputContainerImage
+      value: quay.io/tosin2013/redhat-edge-ai-industrial-demo
