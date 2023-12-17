@@ -6,8 +6,13 @@
 kustomize build components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env 
 ```
 
-**Using OC Cli**
+**Using oc-cli**
 ```
 oc apply -k components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env
 ```
 
+**Via URL**
+*make sure openshift pipelines is installed before running*
+```
+oc apply -k https://github.com/tosin2013/redhat-edge-ai-industrial-demo-infra/components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env
+```
