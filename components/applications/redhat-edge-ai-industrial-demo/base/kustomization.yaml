@@ -9,6 +9,7 @@ resources:
   - scc.yaml
   - scc-rolebinding.yaml
   - role-binding.yaml
+  - privileged-pipeline.yaml
   - multiarch-daemonset.yaml
   - multiarch-task.yaml
   - apply-manifests.yaml
