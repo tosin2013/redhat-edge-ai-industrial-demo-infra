@@ -3,7 +3,6 @@ kind: Task
 metadata:
   name: mutli-arch-buildah
 spec:
-  serviceAccountName: qemu-service-account
   params:
   - name: buildahVersion
     type: string
