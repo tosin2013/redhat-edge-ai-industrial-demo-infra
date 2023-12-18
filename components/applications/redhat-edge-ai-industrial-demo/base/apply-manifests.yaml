@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: apply-manifests
+  namespace: rhde-dev-instance
+spec:
+  params:
+    - default: k8s
+      description: The directory in source that contains yaml manifests
+      name: manifest_dir
+      type: string
+  steps:
+    - args:
+        - oc apply -f $(inputs.params.manifest_dir)
+      command:
+        - /bin/bash
+        - '-c'
+      computeResources: {}
+      image: 'quay.io/openshift/origin-cli:latest'
+      name: apply
+      workingDir: /workspace/source
+  workspaces:
+    - name: source
