@@ -11,5 +11,6 @@ resources:
   - role-binding.yaml
   - multiarch-daemonset.yaml
   - multiarch-task.yaml
+  - apply-manifests.yaml
   - pvc.yaml
   - tekton-pipeline.yaml
