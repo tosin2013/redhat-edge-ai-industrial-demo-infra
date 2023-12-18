@@ -11,6 +11,3 @@ subjects:
 - kind: ServiceAccount
   name: qemu-service-account
   namespace: rhde-dev-instance
-- kind: ServiceAccount
-  name: pipeline
-  namespace: rhde-dev-instance
