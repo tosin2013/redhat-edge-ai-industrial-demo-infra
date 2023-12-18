@@ -39,8 +39,18 @@
     - cluster: local
       url: https://kubernetes.default.svc
       values:
-        name: rhods-operator
-        path: components/applications/redhat-edge-ai-industrial-demo/overlays/rhods-operator
+        name: aap-operator
+        path: components/operators/ansible-automation-platform/operator/overlays/stable-2.4-cluster-scoped
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: aap-instance
+        path: components/operators/ansible-automation-platform/instance/overlays/default
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: quay-operator
+        path: components/operators/quay-registry/operator/overlays/stable-3.6
     #- cluster: local
     #  url: https://kubernetes.default.svc
     #  values:
