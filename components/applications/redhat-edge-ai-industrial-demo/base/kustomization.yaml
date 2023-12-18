@@ -5,6 +5,7 @@ namespace: rhde-dev-instance
 
 resources:
   - edge-namespace.yaml
+  - sa-account.yaml
   - scc.yaml
   - scc-rolebinding.yaml
   - role-binding.yaml
