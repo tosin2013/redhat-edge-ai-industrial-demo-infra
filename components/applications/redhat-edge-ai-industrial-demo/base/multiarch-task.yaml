@@ -50,7 +50,7 @@ spec:
           extra_args="$extra_args --file $CONTAINERFILE"
         fi
 
-        buildah bud --storage-driver vfs --manifest tekton -t $TARGET_IMAGE $extra_args .
+        buildah bud --storage-driver overlay2 --manifest tekton -t $TARGET_IMAGE $extra_args .
         echo
       }
 
@@ -59,7 +59,7 @@ spec:
         echo " buildah push $1"
         echo "========================================================="
         echo
-        buildah manifest push --storage-driver vfs --all tekton "docker://$1"
+        buildah manifest push --storage-driver overlay2 --all tekton "docker://$1"
         echo
       }
 
