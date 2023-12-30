@@ -37,6 +37,8 @@ spec:
       #!/bin/bash
 
       set -Eeuo pipefail
+      ls -lath /src
+      ls -R /src
 
       function build () {
         echo "========================================================="
