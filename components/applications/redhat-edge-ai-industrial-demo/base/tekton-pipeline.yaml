@@ -57,7 +57,7 @@ spec:
           value: "false"
         - name: IMAGE
           value: $(params.IMAGE)
-        - name: CONTEXT
+        - name: BUILD_DIR
           value:  $(params.BUILD_DIR)
         - name: buildahPlatforms  # Adding this to specify the target platforms
           value:

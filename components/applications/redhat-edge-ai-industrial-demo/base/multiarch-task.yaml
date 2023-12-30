@@ -10,6 +10,8 @@ spec:
     type: array
   - name: outputContainerImage
     type: string
+  - name: BUILD_DIR
+    type: string
   workspaces:
   - name: src
     mountPath: /src
@@ -22,6 +24,8 @@ spec:
     env:
     - name: TARGET_IMAGE
       value: "$(params.outputContainerImage)"
+    - name: CONTAINERFILE
+      value: "$(params.BUILD_DIR)/Dockerfile"
     securityContext:
       capabilities:
         add:
