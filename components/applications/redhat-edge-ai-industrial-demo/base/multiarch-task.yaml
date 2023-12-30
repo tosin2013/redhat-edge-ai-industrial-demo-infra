@@ -10,8 +10,6 @@ spec:
     type: array
   - name: outputContainerImage
     type: string
-  - name: BUILD_DIR
-    type: string
   workspaces:
   - name: src
     mountPath: /src
