@@ -22,9 +22,13 @@ spec:
       default:
       - linux/amd64 #linux/x86_64
       - linux/arm64/v8
+    - name: BUILD_DIR
+      type: string
+      description: directory of the code to be built container is the original code
+      default: container-development
     - name: outputContainerImage
       type: string
-      default: quay.io/tosin2013/redhat-edge-ai-industrial-dem
+      default: quay.io/tosin2013/redhat-edge-ai-industrial-demo
   tasks:
     - name: fetch-repository
       taskRef:
@@ -54,7 +58,7 @@ spec:
         - name: IMAGE
           value: $(params.IMAGE)
         - name: CONTEXT
-          value: container
+          value:  $(params.BUILD_DIR)
         - name: buildahPlatforms  # Adding this to specify the target platforms
           value:
           - $(params.buildahPlatforms[*])

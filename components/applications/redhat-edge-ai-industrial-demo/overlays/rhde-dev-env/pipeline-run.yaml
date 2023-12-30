@@ -22,3 +22,5 @@ spec:
         - linux/arm64/v8
     - name: outputContainerImage
       value: quay.io/tosin2013/redhat-edge-ai-industrial-demo
+    - name: BUILD_DIR
+      value: container-development
