@@ -57,8 +57,6 @@ spec:
           value: "false"
         - name: IMAGE
           value: $(params.IMAGE)
-        - name: BUILD_DIR
-          value:  $(params.BUILD_DIR)
         - name: buildahPlatforms  # Adding this to specify the target platforms
           value:
           - $(params.buildahPlatforms[*])
@@ -67,10 +65,10 @@ spec:
       workspaces:
         - name: src
           workspace: scratch
-          subPath: container
+          subPath: $(params.BUILD_DIR)
         - name: containers
           workspace: scratch
-          subPath: container
+          subPath: $(params.BUILD_DIR)
       runAfter:
         - fetch-repository
     - name: apply-manifests
