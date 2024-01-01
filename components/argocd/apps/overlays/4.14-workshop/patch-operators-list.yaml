@@ -50,7 +50,12 @@
       url: https://kubernetes.default.svc
       values:
         name: quay-operator
-        path: components/operators/quay-registry/operator/overlays/stable-3.6
+        path: components/operators/quay-registry/operator/overlays/stable-3.10
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: quay-instance
+        path: components/operators/quay-registry/instance/overlays/default
     #- cluster: local
     #  url: https://kubernetes.default.svc
     #  values:
