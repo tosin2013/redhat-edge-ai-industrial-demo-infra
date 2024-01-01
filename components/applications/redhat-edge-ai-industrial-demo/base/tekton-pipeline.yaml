@@ -28,7 +28,7 @@ spec:
       default: container-development
     - name: outputContainerImage
       type: string
-      default: quay.io/tosin2013/redhat-edge-ai-industrial-demo
+      default: quay.io/CHANGEME/redhat-edge-ai-industrial-demo
   tasks:
     - name: fetch-repository
       taskRef:
