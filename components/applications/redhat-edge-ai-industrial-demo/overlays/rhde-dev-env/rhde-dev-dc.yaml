@@ -24,13 +24,13 @@ spec:
       containers:
         - name: rhde-dev-instance
           image: >-
-            image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/rhde-dev-instance:latest
+            quay.io/takinosh/redhat-edge-ai-industrial-demo:latest
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
           ports:
-            - containerPort: 8000
+            - containerPort: 5000
               protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
