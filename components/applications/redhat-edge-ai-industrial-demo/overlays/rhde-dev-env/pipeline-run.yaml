@@ -21,7 +21,7 @@ spec:
         - linux/amd64 #linux/x86_64
         - linux/arm64/v8
     - name: outputContainerImage
-      value: registry-quay-app.quay.svc.cluster.local:443/admin/redhat-edge-ai-industrial-demo
+      value: registry-quay-quay.apps.lab.example.com:443/admin/redhat-edge-ai-industrial-demo
     - name: BUILD_DIR
       value: container-development
     - name: pushTimeOut

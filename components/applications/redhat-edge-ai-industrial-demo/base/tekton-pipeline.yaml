@@ -29,9 +29,9 @@ spec:
     - name: outputContainerImage
       type: string
       default: quay.io/CHANGEME/redhat-edge-ai-industrial-demo
-    - name: pushTimeOut
+    - name: tlsVerify
       type: string
-      default: '600'
+      default: "true"
   tasks:
     - name: fetch-repository
       taskRef:
@@ -57,7 +57,7 @@ spec:
         - name: buildahVersion
           value: latest
         - name: TLSVERIFY
-          value: "false"
+          value:  $(params.tlsVerify)
         - name: IMAGE
           value: $(params.IMAGE)
         - name: buildahPlatforms  # Adding this to specify the target platforms

@@ -13,6 +13,9 @@ spec:
   - name: pushTimeOut
     type: string
     default: "600"
+  - name: TLSVERIFY
+    type: string
+    default: "true"
   workspaces:
   - name: src
     mountPath: /src
@@ -27,6 +30,8 @@ spec:
       value: "$(params.outputContainerImage)"
     - name: PUSH_TIMEOUT
       value: "$(params.pushTimeOut)"
+    - name: TLSVERIFY
+      value: "$(params.TLSVERIFY)"
     securityContext:
       capabilities:
         add:
@@ -64,7 +69,8 @@ spec:
         echo " buildah push $1"
         echo "========================================================="
         echo
-        buildah manifest push --retry=25 --retry-delay=10 --storage-driver overlay2 --all tekton "docker://$1"
+        buildah manifest push --help
+        buildah manifest push --tls-verify ${TLSVERIFY} --storage-driver overlay2 --all tekton "docker://$1"
         echo
       }
 
