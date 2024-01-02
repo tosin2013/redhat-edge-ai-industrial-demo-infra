@@ -64,7 +64,7 @@ spec:
         echo " buildah push $1"
         echo "========================================================="
         echo
-        buildah manifest push --timeout=${PUSH_TIMEOUT} --storage-driver overlay2 --all tekton "docker://$1"
+        buildah manifest push --retry=25 --retry-delay=10 --storage-driver overlay2 --all tekton "docker://$1"
         echo
       }
 
