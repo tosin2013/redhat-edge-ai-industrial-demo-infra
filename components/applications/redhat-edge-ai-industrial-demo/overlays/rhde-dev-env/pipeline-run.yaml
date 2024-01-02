@@ -24,3 +24,5 @@ spec:
       value: registry-quay-app.quay.svc.cluster.local:443/admin/redhat-edge-ai-industrial-demo
     - name: BUILD_DIR
       value: container-development
+    - name: pushTimeOut
+      value: 600

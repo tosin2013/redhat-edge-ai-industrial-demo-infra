@@ -29,6 +29,9 @@ spec:
     - name: outputContainerImage
       type: string
       default: quay.io/CHANGEME/redhat-edge-ai-industrial-demo
+    - name: pushTimeOut
+      type: string
+      default: 600
   tasks:
     - name: fetch-repository
       taskRef:
@@ -62,6 +65,8 @@ spec:
           - $(params.buildahPlatforms[*])
         - name: outputContainerImage
           value: "$(params.outputContainerImage)"
+        - name: pushTimeOut
+          value: "$(params.pushTimeOut)"
       workspaces:
         - name: src
           workspace: scratch

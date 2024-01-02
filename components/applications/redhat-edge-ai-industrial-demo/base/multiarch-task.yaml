@@ -10,6 +10,9 @@ spec:
     type: array
   - name: outputContainerImage
     type: string
+  - name: pushTimeOut
+    type: string
+    default: "600"
   workspaces:
   - name: src
     mountPath: /src
@@ -22,6 +25,8 @@ spec:
     env:
     - name: TARGET_IMAGE
       value: "$(params.outputContainerImage)"
+    - name: PUSH_TIMEOUT
+      value: "$(params.pushTimeOut)"
     securityContext:
       capabilities:
         add:
@@ -59,7 +64,7 @@ spec:
         echo " buildah push $1"
         echo "========================================================="
         echo
-        buildah manifest push --storage-driver overlay2 --all tekton "docker://$1"
+        buildah manifest push --timeout=${PUSH_TIMEOUT} --storage-driver overlay2 --all tekton "docker://$1"
         echo
       }
 
