@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: build-and-deploy-run-01
+  generateName: build-and-deploy-run-02
   namespace: rhde-dev-instance
 spec:
   serviceAccountName: pipeline
@@ -25,4 +25,4 @@ spec:
     - name: BUILD_DIR
       value: container-development
     - name: pushTimeOut
-      value: 600
+      value: '600'

@@ -31,7 +31,7 @@ spec:
       default: quay.io/CHANGEME/redhat-edge-ai-industrial-demo
     - name: pushTimeOut
       type: string
-      default: 600
+      default: '600'
   tasks:
     - name: fetch-repository
       taskRef:
