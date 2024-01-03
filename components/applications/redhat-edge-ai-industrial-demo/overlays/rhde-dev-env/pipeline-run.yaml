@@ -4,14 +4,14 @@ metadata:
   generateName: build-and-deploy-run-xx
   namespace: rhde-dev-instance
 spec:
-  timeout: 2h30m0s
+  timeout: 24h
   serviceAccountName: pipeline
   pipelineRef:
     name: build-and-deploy
   workspaces:
     - name: scratch
-      persistentVolumeClaim:
-        claimName: pipelines-test
+      persistentVolumeClaim: 
+        claimName: pipelines-test-2
   params:
     - name: git-url
       value: https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git
@@ -22,7 +22,7 @@ spec:
         - linux/amd64 #linux/x86_64
         - linux/arm64/v8
     - name: outputContainerImage
-      value: registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
+      value: registry-quay-quay.apps.cpjdz.dynamic.opentlc.com/admin/redhat-edge-ai-industrial-demo
     - name: BUILD_DIR
       value: container-development
     - name: tlsVerify
@@ -30,3 +30,5 @@ spec:
 
 
 # registry-quay-quay.apps.cpjdz.dynamic.opentlc.com/admin/redhat-edge-ai-industrial-demo
+
+registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo

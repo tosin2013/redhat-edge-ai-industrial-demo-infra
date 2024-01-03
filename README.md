@@ -46,3 +46,15 @@ cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/baremetal
 ```
 
+## Before running tekton pipelines run the script below 
+*This will attach the pull secret to the pipeline service account*
+```
+./hack/configure-pipeline-secret.sh 
+```
+
+## Tekton Run 
+
+* This file will push to your quay repo after you create it.
+  * [pipeline-run-quay.yaml](components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env/pipeline-run-quay.yaml)
+* This file will push to the quay instance in openshift you will have to update it to the quay registry after you have created a account.
+  * [pipeline-run.yaml](components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env/pipeline-run.yaml)
