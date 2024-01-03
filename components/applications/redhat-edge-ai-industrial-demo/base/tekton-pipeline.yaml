@@ -53,6 +53,7 @@ spec:
       taskRef:
         name: mutli-arch-buildah
         kind: Task
+      timeout: 3h
       params:
         - name: buildahVersion
           value: latest
