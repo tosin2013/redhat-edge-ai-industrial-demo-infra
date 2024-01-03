@@ -65,8 +65,6 @@ spec:
           - $(params.buildahPlatforms[*])
         - name: outputContainerImage
           value: "$(params.outputContainerImage)"
-        - name: pushTimeOut
-          value: "$(params.pushTimeOut)"
       workspaces:
         - name: src
           workspace: scratch
