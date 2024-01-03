@@ -69,7 +69,6 @@ spec:
         echo " buildah push $1"
         echo "========================================================="
         echo
-        buildah manifest push --help
         buildah manifest push --tls-verify ${TLSVERIFY} --storage-driver overlay2 --all tekton "docker://$1"
         echo
       }
