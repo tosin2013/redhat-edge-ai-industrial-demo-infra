@@ -1,9 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: build-and-deploy-run-02
+  generateName: build-and-deploy-run-xx
   namespace: rhde-dev-instance
 spec:
+  timeout: 2h30m0s
   serviceAccountName: pipeline
   pipelineRef:
     name: build-and-deploy
@@ -21,8 +22,11 @@ spec:
         - linux/amd64 #linux/x86_64
         - linux/arm64/v8
     - name: outputContainerImage
-      value: registry-quay-quay.apps.lab.example.com:443/admin/redhat-edge-ai-industrial-demo
+      value: registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
     - name: BUILD_DIR
       value: container-development
     - name: tlsVerify
       value: "false"
+
+
+# registry-quay-quay.apps.cpjdz.dynamic.opentlc.com/admin/redhat-edge-ai-industrial-demo
