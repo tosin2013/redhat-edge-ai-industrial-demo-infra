@@ -36,7 +36,7 @@ start_pipeline() {
 }
 
 # Get the name and status of the pipeline run
-pipeline_run=$(tkn pipelinerun list | grep build-and-deploy-run | awk '{print $1,$6}')
+pipeline_run=$(tkn pipelinerun list -n rhde-dev-instance | grep build-and-deploy-run  | awk '{print $1,$6}')
 
 # Extract the name and status
 name=$(echo $pipeline_run | cut -d' ' -f1)
