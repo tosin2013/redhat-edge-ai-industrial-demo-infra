@@ -28,6 +28,7 @@ tkn pipeline start build-and-deploy \
   -p outputContainerImage="$OUTPUT_CONTAINER_IMAGE" \
   -p BUILD_DIR="$BUILD_DIR" \
   -p tlsVerify="$TLS_VERIFY" \
+  --pipeline-timeout "6h" \
   -w name="$WORKSPACE_NAME",claimName="$PVC_NAME"
 
 echo "Pipeline started successfully."
