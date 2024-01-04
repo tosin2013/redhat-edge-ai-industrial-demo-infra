@@ -45,7 +45,7 @@ status=$(echo $pipeline_run | cut -d' ' -f2)
 # Check the status of the pipeline run
 if [ "$status" == "Running" ]; then
     # Tail the logs if it's running
-    tkn pipelinerun logs -f $name
+    tkn pipelinerun logs -f $name -n rhde-dev-instance
 elif [ "$status" == "Failed" ]; then
     # Delete the pipeline run if it failed
     echo "Pipeline run failed. Deleting the pipeline run..."
