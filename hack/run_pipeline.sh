@@ -35,26 +35,8 @@ start_pipeline() {
   echo "Pipeline started successfully."
 }
 
-
-oc delete pvc $PVC_NAME -n rhde-dev-instance --wait=true
-sleep 10s
-
-# Start the pipeline with predefined parameters
-tkn pipeline start build-and-deploy \
-  -n rhde-dev-instance \
-  -p git-url="$GIT_URL" \
-  -p IMAGE="$IMAGE" \
-  -p buildahPlatforms="$BUILDAH_PLATFORMS" \
-  -p outputContainerImage="$OUTPUT_CONTAINER_IMAGE" \
-  -p BUILD_DIR="$BUILD_DIR" \
-  -p tlsVerify="$TLS_VERIFY" \
-  --pipeline-timeout "6h" \
-  -w name="$WORKSPACE_NAME",claimName="$PVC_NAME"
-
-echo "Pipeline started successfully."
-
 # Get the name and status of the pipeline run
-pipeline_run=$(tkn pipelinerun list | grep build-and-deploy-run | awk '{print $1,$4}')
+pipeline_run=$(tkn pipelinerun list | grep build-and-deploy-run | awk '{print $1,$6}')
 
 # Extract the name and status
 name=$(echo $pipeline_run | cut -d' ' -f1)
@@ -66,7 +48,9 @@ if [ "$status" == "Running" ]; then
     tkn pipelinerun logs -f $name
 elif [ "$status" == "Failed" ]; then
     # Delete the pipeline run if it failed
-    tkn pipelinerun delete $name
+    echo "Pipeline run failed. Deleting the pipeline run..."
+    echo "tkn pipelinerun delete $name -n rhde-dev-instance"
+    tkn pipelinerun delete $name -n rhde-dev-instance
     start_pipeline
 else
     # Start the pipeline run if it does not exist or has been deleted
