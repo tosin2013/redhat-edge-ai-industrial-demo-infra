@@ -58,3 +58,8 @@ oc create -k clusters/overlays/baremetal
   * [pipeline-run-quay.yaml](components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env/pipeline-run-quay.yaml)
 * This file will push to the quay instance in openshift you will have to update it to the quay registry after you have created a account.
   * [pipeline-run.yaml](components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env/pipeline-run.yaml)
+
+## You may also use the script below to run the pipeline
+```
+./hack/run-pipeline.sh registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
+```

@@ -11,7 +11,7 @@ spec:
   workspaces:
     - name: scratch
       persistentVolumeClaim: 
-        claimName: pipelines-test-2
+        claimName: pipelines-test
   params:
     - name: git-url
       value: https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git
@@ -22,7 +22,7 @@ spec:
         - linux/amd64 #linux/x86_64
         - linux/arm64/v8
     - name: outputContainerImage
-      value: registry-quay-quay.apps.cpjdz.dynamic.opentlc.com/admin/redhat-edge-ai-industrial-demo
+      value: registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
     - name: BUILD_DIR
       value: container-development
     - name: tlsVerify
@@ -31,4 +31,6 @@ spec:
 
 # registry-quay-quay.apps.cpjdz.dynamic.opentlc.com/admin/redhat-edge-ai-industrial-demo
 
-registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
+# registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
+
+# registry-quay-quay.apps.rhel-edge.sandbox1709.opentlc.com
