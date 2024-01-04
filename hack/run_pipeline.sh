@@ -67,6 +67,7 @@ if [ "$status" == "Running" ]; then
 elif [ "$status" == "Failed" ]; then
     # Delete the pipeline run if it failed
     tkn pipelinerun delete $name
+    start_pipeline
 else
     # Start the pipeline run if it does not exist or has been deleted
     start_pipeline
