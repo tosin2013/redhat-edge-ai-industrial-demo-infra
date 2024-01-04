@@ -20,7 +20,7 @@ oc delete pvc $PVC_NAME -n rhde-dev-instance --wait=true
 sleep 10s
 
 # Start the pipeline with predefined parameters
-PIPELINE_RUN_NAME=$(tkn pipeline start build-and-deploy \
+tkn pipeline start build-and-deploy \
   -n rhde-dev-instance \
   -p git-url="$GIT_URL" \
   -p IMAGE="$IMAGE" \
@@ -28,13 +28,9 @@ PIPELINE_RUN_NAME=$(tkn pipeline start build-and-deploy \
   -p outputContainerImage="$OUTPUT_CONTAINER_IMAGE" \
   -p BUILD_DIR="$BUILD_DIR" \
   -p tlsVerify="$TLS_VERIFY" \
-  -w name="$WORKSPACE_NAME",claimName="$PVC_NAME" \
-  -o name)
+  -w name="$WORKSPACE_NAME",claimName="$PVC_NAME"
 
-if [ -z "$PIPELINE_RUN_NAME" ]; then
-  echo "Failed to start the pipeline."
-else
-  echo "Pipeline started successfully."
-  # Tail the pipeline run logs
-  tkn pipeline logs -f -n rhde-dev-instance -r "$PIPELINE_RUN_NAME"
-fi
+echo "Pipeline started successfully."
+
+# Tail the pipeline run logs
+tkn pipeline logs -f -n rhde-dev-instance
