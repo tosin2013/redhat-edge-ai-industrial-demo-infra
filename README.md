@@ -63,3 +63,10 @@ oc create -k clusters/overlays/baremetal
 ```
 ./hack/run-pipeline.sh registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
 ```
+
+### Quick start for OpenShift web console
+```
+curl -OL https://raw.githubusercontent.com/tosin2013/redhat-edge-ai-industrial-demo-infra/main/hack/run_pipeline.sh
+chmod +x run_pipeline.sh
+./run_pipeline.sh registry-quay-quay.apps.lab.example.com/admin/redhat-edge-ai-industrial-demo
+```
