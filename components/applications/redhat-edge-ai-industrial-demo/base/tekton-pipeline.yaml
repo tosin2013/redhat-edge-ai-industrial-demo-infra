@@ -75,11 +75,11 @@ spec:
           subPath: $(params.BUILD_DIR)
       runAfter:
         - fetch-repository
-    - name: apply-manifests
-      taskRef:
-        name: apply-manifests
-      workspaces:
-        - name: source
-          workspace: scratch
-      runAfter:
-        - mutli-arch-image-build
+    #- name: apply-manifests
+    #  taskRef:
+    #    name: apply-manifests
+    #  workspaces:
+    #    - name: source
+    #      workspace: scratch
+    #  runAfter:
+    #    - mutli-arch-image-build
