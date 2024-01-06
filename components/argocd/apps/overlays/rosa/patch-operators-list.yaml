@@ -26,3 +26,18 @@
       values:
         name: web-terminal-operator
         path: components/operators/web-terminal-operator/operator/overlays/fast
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: rhde-dev-env
+        path: components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: aap-operator
+        path: components/operators/ansible-automation-platform/operator/overlays/stable-2.4-cluster-scoped
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: aap-instance
+        path: components/operators/ansible-automation-platform/instance/overlays/default

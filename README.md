@@ -43,7 +43,7 @@ oc create -k clusters/overlays/baremetal
 ```
 $ kustomize build clusters/overlays/baremetal  # to test  
 cd $HOME/redhat-edge-ai-industrial-demo-infra
-oc create -k clusters/overlays/baremetal
+oc create -k clusters/overlays/rosa
 ```
 
 ## Before running tekton pipelines run the script below 
