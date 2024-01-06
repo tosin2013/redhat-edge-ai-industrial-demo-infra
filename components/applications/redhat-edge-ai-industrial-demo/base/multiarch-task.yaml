@@ -71,7 +71,7 @@ spec:
         echo
         echo "buildah manifest push --tls-verify=${TLSVERIFY} --storage-driver overlay2 --all tekton "docker://$1""
         ls -lath /tekton/creds-secrets/registry-pull-secret/.dockerconfigjson
-        cat /tekton/creds-secrets/registry-pull-secret/.dockerconfigjson
+        # cat /tekton/creds-secrets/registry-pull-secret/.dockerconfigjson
         buildah manifest push --authfile=/tekton/creds-secrets/registry-pull-secret/.dockerconfigjson --tls-verify=${TLSVERIFY} --storage-driver overlay2 --all tekton "docker://$1"
         echo
       }
