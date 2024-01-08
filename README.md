@@ -25,6 +25,13 @@ cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/aws
 ```
 
+**AWS GPU Deployment**
+```
+$ kustomize build clusters/overlays/aws  # to test
+cd $HOME/redhat-edge-ai-industrial-demo-infra
+oc create -k clusters/overlays/aws-gpu
+```
+
 **4.14-workshop on RHPDS**
 ```
 $ kustomize build clusters/overlays/4.14-workshop  # to test

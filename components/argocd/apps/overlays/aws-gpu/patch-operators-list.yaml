@@ -1,0 +1,63 @@
+- op: add
+  path: /spec/generators/0/list/elements
+  value:
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: openshift-data-foundation-operator
+        path: components/operators/openshift-data-foundation/aggregate/overlays/aws-node-labeler-4.14
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: rhods-operator
+        path: components/operators/rhods-operator/operator/overlays/stable
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: rhods-instance
+        path: components/operators/rhods-operator/instance/overlays/standard
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: openshift-pipelines-operator
+        path: components/operators/openshift-pipelines/operator/overlays/latest
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: prometheus-user-workload-monitoring
+        path: components/operators/prometheus-monitoring/instance/overlays/user-workload-monitoring/
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: web-terminal-operator
+        path: components/operators/web-terminal-operator/operator/overlays/fast
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: rhde-dev-env
+        path: components/applications/redhat-edge-ai-industrial-demo/overlays/rhde-dev-env
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: aap-operator
+        path: components/operators/ansible-automation-platform/operator/overlays/stable-2.4-cluster-scoped
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: aap-instance
+        path: components/operators/ansible-automation-platform/instance/overlays/default
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: quay-operator
+        path: components/operators/quay-registry/operator/overlays/stable-3.10
+    #- cluster: local
+    #  url: https://kubernetes.default.svc
+    #  values:
+    #    name: quay-instance
+    #    path: components/operators/quay-registry/instance/overlays/default
+    #- cluster: local
+    #  url: https://kubernetes.default.svc
+    #  values:
+    #    name: seldon-operator
+    #    path: components/operators/seldon/operator/overlays/stable
