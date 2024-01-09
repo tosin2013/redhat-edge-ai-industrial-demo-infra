@@ -29,7 +29,7 @@ oc create -k clusters/overlays/aws
 Target GPU instance type: g4dn.xlarge
 * https://instances.vantage.sh/aws/ec2/g4dn.4xlarge
 ```
-$ kustomize build clusters/overlays/aws  # to test
+$ kustomize build clusters/overlays/aws-gpu  # to test
 cd $HOME/redhat-edge-ai-industrial-demo-infra
 oc create -k clusters/overlays/aws-gpu
 ```
