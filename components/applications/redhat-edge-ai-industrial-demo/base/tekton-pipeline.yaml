@@ -17,6 +17,10 @@ spec:
       type: string
       description: revision of the git repo for the code of deployment
       default: rh1
+    - name: sparseCheckoutDirectories
+      type: string
+      description: sparseCheckoutDirectories of the git repo for the code of deployment
+      default: "--no-cone pins/container"
     - name: IMAGE
       type: string
       description: image to be built from the code
@@ -51,6 +55,8 @@ spec:
           value:  $(params.revision)
         - name: depth
           value: '1'  #
+        - name: sparseCheckoutDirectories
+          value: $(params.sparseCheckoutDirectories)
         - name: subdirectory
           value: ""
         - name: deleteExisting
