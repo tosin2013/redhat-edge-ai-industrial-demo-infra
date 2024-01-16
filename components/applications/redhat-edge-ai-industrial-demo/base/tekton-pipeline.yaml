@@ -32,7 +32,7 @@ spec:
       default: container-development
     - name: outputContainerImage
       type: string
-      default: quay.io/CHANGEME/redhat-edge-ai-industrial-demo
+      default: quay.io/redhat_edge_ai_industrial_demo/pins_demo
     - name: tlsVerify
       type: string
       default: "true"
