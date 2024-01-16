@@ -6,11 +6,11 @@ if [ -z "$1" ]; then
 fi
 
 # Define your parameters
-GIT_URL="https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git"
+GIT_URL="https://github.com/bdherouville/redhat-edge-ai-industrial-demo.git"
 IMAGE="image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/redhat-edge-ai-industrial-demo:latest"
-BUILDAH_PLATFORMS="linux/amd64,linux/arm64/v8"
+BUILDAH_PLATFORMS="linux/x86_64,linux/arm64/v8"
 OUTPUT_CONTAINER_IMAGE="$1"
-BUILD_DIR="container-development"
+BUILD_DIR="pins/container"
 TLS_VERIFY="false"
 WORKSPACE_NAME="scratch"
 PVC_NAME="pipelines-test"
