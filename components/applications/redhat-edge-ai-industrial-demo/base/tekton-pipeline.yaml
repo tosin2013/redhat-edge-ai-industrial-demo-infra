@@ -12,7 +12,7 @@ spec:
     - name: git-url
       type: string
       description: url of the git repo for the code of deployment
-      default: https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git
+      default: https://github.com/bdherouville/redhat-edge-ai-industrial-demo.git
     - name: IMAGE
       type: string
       description: image to be built from the code

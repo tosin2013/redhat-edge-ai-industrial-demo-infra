@@ -49,6 +49,11 @@
     - cluster: local
       url: https://kubernetes.default.svc
       values:
+        name: hub-instance
+        path: components/operators/ansible-automation-platform/hub-instance/overlays/default
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
         name: nvidia-gpu-operator
         path: components/operators/nvidia-gpu-operator/operator/overlays/v23.9
     - cluster: local

@@ -13,7 +13,7 @@ spec:
         claimName: pipelines-test
   params:
     - name: git-url
-      value: https://github.com/tosin2013/redhat-edge-ai-industrial-demo.git
+      value: https://github.com/bdherouville/redhat-edge-ai-industrial-demo.git
     - name: IMAGE
       value: image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/redhat-edge-ai-industrial-demo:latest
     - name: buildahPlatforms
