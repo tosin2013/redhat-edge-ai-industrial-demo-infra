@@ -15,3 +15,4 @@ resources:
   - apply-manifests.yaml
   - pvc.yaml
   - tekton-pipeline.yaml
+  - tekton-pipeline-sparseCheckoutDirectories.yaml

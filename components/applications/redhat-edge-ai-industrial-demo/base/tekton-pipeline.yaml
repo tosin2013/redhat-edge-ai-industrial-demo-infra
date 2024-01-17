@@ -24,7 +24,8 @@ spec:
     - name: buildahPlatforms
       type: array
       default:
-      - linux/amd64 #linux/x86_64
+      - linux/x86_64
+      - linux/amd64
       - linux/arm64/v8
     - name: BUILD_DIR
       type: string
@@ -33,6 +34,9 @@ spec:
     - name: outputContainerImage
       type: string
       default: quay.io/redhat_edge_ai_industrial_demo/pins_demo
+    - name: image_tag
+      type: string
+      default: "latest"
     - name: tlsVerify
       type: string
       default: "true"
@@ -67,6 +71,8 @@ spec:
           value:  $(params.tlsVerify)
         - name: IMAGE
           value: $(params.IMAGE)
+        - name: IMAGE_TAG
+          value: $(params.image_tag)
         - name: buildahPlatforms  # Adding this to specify the target platforms
           value:
           - $(params.buildahPlatforms[*])

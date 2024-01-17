@@ -16,6 +16,9 @@ spec:
   - name: TLSVERIFY
     type: string
     default: "true"
+  - name: image_tag
+    type: string
+    default: "latest"
   workspaces:
   - name: src
     mountPath: /src
@@ -28,6 +31,8 @@ spec:
     env:
     - name: TARGET_IMAGE
       value: "$(params.outputContainerImage)"
+    - name: IMAGE_TAG
+      value: "$(params.image_tag)"
     - name: PUSH_TIMEOUT
       value: "$(params.pushTimeOut)"
     - name: TLSVERIFY
@@ -80,6 +85,6 @@ spec:
         build "$platform"
       done
 
-      push "$TARGET_IMAGE:latest"
+      push "$TARGET_IMAGE:$IMAGE_TAG"
 
       exit 0 
