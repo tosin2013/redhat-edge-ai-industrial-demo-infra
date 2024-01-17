@@ -1,0 +1,100 @@
+
+# https://www.itix.fr/blog/build-multi-architecture-container-images-with-kubernetes-buildah-tekton-and-qemu/
+---
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: build-and-deploy-sparseCheckoutDirectories
+spec:
+  workspaces:
+    - name: scratch
+  params:
+    - name: git-url
+      type: string
+      description: url of the git repo for the code of deployment
+      default: https://github.com/bdherouville/redhat-edge-ai-industrial-demo.git
+    - name: revision
+      type: string
+      description: revision of the git repo for the code of deployment
+      default: rh1
+    - name: sparseCheckoutDirectories
+      type: string
+      description: sparseCheckoutDirectories of the git repo for the code of deployment
+      default: "pins/container"
+    - name: IMAGE
+      type: string
+      description: image to be built from the code
+      default: image-registry.openshift-image-registry.svc:5000/rhde-dev-instance/redhat-edge-ai-industrial-demo:latest
+    - name: buildahPlatforms
+      type: array
+      default:
+      - linux/x86_64
+      - linux/amd64
+      - linux/arm64/v8
+    - name: BUILD_DIR
+      type: string
+      description: directory of the code to be built container is the original code
+      default: container-development
+    - name: outputContainerImage
+      type: string
+      default: quay.io/redhat_edge_ai_industrial_demo/pins_demo
+    - name: tlsVerify
+      type: string
+      default: "true"
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: scratch
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value:  $(params.revision)
+        - name: depth
+          value: '1'  #
+        - name: sparseCheckoutDirectories
+          value: $(params.sparseCheckoutDirectories)
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: "true"
+    - name: mutli-arch-image-build
+      taskRef:
+        name: mutli-arch-buildah
+        kind: Task
+      timeout: 3h
+      params:
+        - name: buildahVersion
+          value: latest
+        - name: TLSVERIFY
+          value:  $(params.tlsVerify)
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: IMAGE_TAG
+          value: $(params.image_tag)
+        - name: buildahPlatforms  # Adding this to specify the target platforms
+          value:
+          - $(params.buildahPlatforms[*])
+        - name: outputContainerImage
+          value: "$(params.outputContainerImage)"
+      workspaces:
+        - name: src
+          workspace: scratch
+          subPath: $(params.BUILD_DIR)
+        - name: containers
+          workspace: scratch
+          subPath: $(params.BUILD_DIR)
+      runAfter:
+        - fetch-repository
+    #- name: apply-manifests
+    #  taskRef:
+    #    name: apply-manifests
+    #  workspaces:
+    #    - name: source
+    #      workspace: scratch
+    #  runAfter:
+    #    - mutli-arch-image-build
