@@ -76,6 +76,11 @@
       values:
         name: quay-operator
         path: components/operators/quay-registry/operator/overlays/stable-3.10
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: minio
+        path: components/operators/minio/instance/overlays/default
     #- cluster: local
     #  url: https://kubernetes.default.svc
     #  values:
